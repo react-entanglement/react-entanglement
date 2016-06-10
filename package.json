@@ -4,12 +4,15 @@
   "description": "Spooky action at a distance",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --bail",
+    "develop": "webpack-dev-server --port 3000 --host 0.0.0.0",
+    "dist": "NODE_ENV=production npm run build -- -p",
     "start": "npm run develop",
-    "test": "NODE_ENV=test sagui test",
-    "test-watch": "NODE_ENV=test sagui test --watch",
-    "develop": "sagui develop",
-    "build": "sagui build",
-    "dist": "NODE_ENV=production sagui dist"
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint src/",
+    "test:unit": "NODE_ENV=test karma start",
+    "test:coverage": "SAGUI_COVERAGE=true npm run test:unit",
+    "test:unit:watch": "npm run test -- --no-single-run --auto-watch"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,6 @@
   "devDependencies": {
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "sagui": "^4.4.1"
+    "sagui": "^5.0.0-rc.7"
   }
 }
