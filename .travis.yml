@@ -1,0 +1,5 @@
+language: node_js
+node_js:
+  - "6"
+# send builds to the container-based infrastructure
+sudo: false
