@@ -4,7 +4,12 @@
   "description": "Spooky action at a distance",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run develop",
+    "test": "NODE_ENV=test sagui test",
+    "test-watch": "NODE_ENV=test sagui test --watch",
+    "develop": "sagui develop",
+    "build": "sagui build",
+    "dist": "NODE_ENV=production sagui dist"
   },
   "repository": {
     "type": "git",
@@ -16,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/pirelenito/react-entanglement/issues"
   },
-  "homepage": "https://github.com/pirelenito/react-entanglement#readme"
+  "homepage": "https://github.com/pirelenito/react-entanglement#readme",
+  "devDependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "sagui": "^4.4.1"
+  }
 }
