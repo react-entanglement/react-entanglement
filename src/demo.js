@@ -1,5 +1,5 @@
 import React from 'react'
-import { scatter, materialize, Entanglement, passthroughCommunicationAdapter } from '.'
+import Entanglement from '.'
 import { render } from 'react-dom'
 
 const Dialog = React.createClass({
@@ -8,11 +8,11 @@ const Dialog = React.createClass({
   }
 })
 
-const communicationAdapter = passthroughCommunicationAdapter()
+const communicationAdapter = Entanglement.passthroughCommunicationAdapter()
 
 // Remote App
 
-const MaterializedDialog = materialize(Dialog, 'Dialog')
+const MaterializedDialog = Entanglement.materialize(Dialog, 'Dialog')
 
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
@@ -22,7 +22,7 @@ render((
 
 // Local App
 
-const ScatteredDialog = scatter('Dialog')
+const ScatteredDialog = Entanglement.scatter('Dialog')
 
 render((
   <Entanglement communicationAdapter={communicationAdapter}>

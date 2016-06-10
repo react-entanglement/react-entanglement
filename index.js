@@ -1,3 +1,1 @@
-module.exports = function () {
-  return 'comming soon...'
-}
+module.exports = require('./lib').default

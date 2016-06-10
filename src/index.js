@@ -4,6 +4,8 @@ import _passthroughCommunicationAdapter from './communication-adapters/passthrou
 import _scatter from './components/scatter'
 
 export const Entanglement = _Entanglement
-export const materialize = _materialize
-export const passthroughCommunicationAdapter = _passthroughCommunicationAdapter
-export const scatter = _scatter
+Entanglement.materialize = _materialize
+Entanglement.passthroughCommunicationAdapter = _passthroughCommunicationAdapter
+Entanglement.scatter = _scatter
+
+export default Entanglement
