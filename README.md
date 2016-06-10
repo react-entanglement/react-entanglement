@@ -87,3 +87,8 @@ Or run the unit tests:
 ```bash
 npm test
 ```
+
+## Kudos
+
+* [Ryan Florence](ryanflorence) for his talk [Hype!](https://youtu.be/z5e7kWSHWTg), where he presented the concept of **portals**;
+* [Xavier Via](https://github.com/xaviervia/) for helping finding a name to this project.
