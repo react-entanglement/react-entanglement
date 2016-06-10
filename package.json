@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "Spooky action at a distance",
   "main": "index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib --ignore *.spec.js",
     "develop": "webpack-dev-server --port 3000 --host 0.0.0.0",
