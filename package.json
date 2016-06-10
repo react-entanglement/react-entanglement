@@ -1,6 +1,6 @@
 {
   "name": "react-entanglement",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Spooky action at a distance",
   "main": "index.js",
   "files": [
@@ -21,7 +21,12 @@
     "type": "git",
     "url": "git+https://github.com/pirelenito/react-entanglement.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "component",
+    "react-component",
+    "portal"
+  ],
   "author": "pirelenito",
   "license": "MIT",
   "bugs": {
@@ -31,12 +36,6 @@
   "peerDependencies": {
     "react": "^0.14 || ^15.0.0"
   },
-  "keywords": [
-    "react",
-    "component",
-    "react-component",
-    "portal"
-  ],
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "in-publish": "^2.0.0",
