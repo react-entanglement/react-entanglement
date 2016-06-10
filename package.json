@@ -28,6 +28,9 @@
     "url": "https://github.com/pirelenito/react-entanglement/issues"
   },
   "homepage": "https://github.com/pirelenito/react-entanglement#readme",
+  "peerDependencies": {
+    "react": "^0.14 || ^15.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "in-publish": "^2.0.0",
