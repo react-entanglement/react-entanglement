@@ -4,7 +4,12 @@ import { render } from 'react-dom'
 
 const Dialog = React.createClass({
   render () {
-    return <h1 onClick={() => this.props.onClick('batata frita', 123)}>Hello World</h1>
+    return <div onClick={() => this.props.onClick('batata frita', 123)}>
+      <h1>Testing...</h1>
+      <div>
+        {this.props.children}
+      </div>
+    </div>
   }
 })
 
@@ -27,7 +32,13 @@ const ScatteredDialog = Entanglement.scatter('Dialog')
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
     <div>
-      <ScatteredDialog onClick={(value, number) => window.alert('clicked' + value + number)} />
+      <ScatteredDialog onClick={(value, number) => window.alert('clicked' + value + number)}>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+      </ScatteredDialog>
     </div>
   </Entanglement>
 ), document.getElementById('main-app'))
