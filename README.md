@@ -21,7 +21,7 @@ npm install react-entanglement
 First you need to setup `Entanglement` in the location the component is supposed to be rendered, and configure a `Entanglement.materialize` version of a component (`Dialog` in the example bellow) in the location it is supposed to render:
 
 ```js
-const MaterializedDialog = Entanglement.materialize(Dialog, 'Dialog')
+const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
 
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
