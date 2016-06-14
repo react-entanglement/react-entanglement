@@ -1,7 +1,7 @@
 import React from 'react'
 import CommunicationAdapterType from '../communication-adapters/communication-adapter-type'
 
-export default (Component, componentName) => {
+export default (componentName, Component) => {
   return React.createClass({
     contextTypes: {
       entanglement: CommunicationAdapterType

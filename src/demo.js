@@ -17,7 +17,7 @@ const communicationAdapter = Entanglement.passthroughCommunicationAdapter()
 
 // Remote App
 
-const MaterializedDialog = Entanglement.materialize(Dialog, 'Dialog')
+const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
 
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
