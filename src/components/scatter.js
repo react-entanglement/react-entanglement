@@ -4,7 +4,7 @@ import CommunicationAdapterType from '../communication-adapters/communication-ad
 
 export default (componentName) => {
   return React.createClass({
-    displayName: `${componentName}Portal`,
+    displayName: `Entanglement.scatter.${componentName}`,
 
     contextTypes: {
       entanglement: CommunicationAdapterType
