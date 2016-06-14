@@ -17,11 +17,11 @@ function Dialog ({ items, onClick }) {
   )
 }
 
-const communicationAdapter = passthroughCommunicationAdapter()
+const adapter = passthroughCommunicationAdapter()
 
 // Remote App
 render((
-  <Entanglement communicationAdapter={communicationAdapter}>
+  <Entanglement adapter={adapter}>
     <Materialize
       name='Dialog'
       component={Dialog}
@@ -31,7 +31,7 @@ render((
 
 // Local App
 render((
-  <Entanglement communicationAdapter={communicationAdapter}>
+  <Entanglement adapter={adapter}>
     <div>
       <Scatter
         name='Dialog'

@@ -3,7 +3,7 @@ import CommunicationAdapterType from '../communication-adapters/communication-ad
 
 export default React.createClass({
   propTypes: {
-    communicationAdapter: CommunicationAdapterType
+    adapter: CommunicationAdapterType
   },
 
   childContextTypes: {
@@ -12,7 +12,7 @@ export default React.createClass({
 
   getChildContext () {
     return {
-      entanglement: this.props.communicationAdapter
+      entanglement: this.props.adapter
     }
   },
 

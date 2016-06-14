@@ -39,7 +39,7 @@ export default React.createClass({
     const buildHandler = (name) => (...args) => (
       entanglement.handle(this.props.name, name, args)
     )
-    console.log('allasdflads', data)
+
     const props = {
       ...data.props,
       ...handlerNames.reduce((acc, name) => (
