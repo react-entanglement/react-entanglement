@@ -9,6 +9,10 @@ export default React.createClass({
     entanglement: CommunicationAdapterType
   },
 
+  propTypes: {
+    adapter: CommunicationAdapterType
+  },
+
   componentWillUpdate () {
     validate(this)
   },
@@ -30,7 +34,7 @@ export default React.createClass({
 
 const update = (component) => {
   const { data, handlers } = splitHandlers(component.props)
-  const entanglement = component.context.entanglement
+  const entanglement = component.props.adapter || component.context.entanglement
   const handlerNames = Object.keys(handlers)
 
   // dismiss previous handlers and register new ones
@@ -48,7 +52,9 @@ const update = (component) => {
 }
 
 const unmount = (component) => {
-  component.context.entanglement.unmount(component.props.name)
+  const entanglement = component.props.adapter || component.context.entanglement
+
+  entanglement.unmount(component.props.name)
   component.dismissers.forEach((dismisser) => dismisser())
   component.dismissers = []
 }

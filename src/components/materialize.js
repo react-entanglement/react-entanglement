@@ -8,6 +8,10 @@ export default React.createClass({
     entanglement: CommunicationAdapterType
   },
 
+  propTypes: {
+    adapter: CommunicationAdapterType
+  },
+
   getInitialState () {
     return {
       isMounted: false,
@@ -16,7 +20,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    const entanglement = this.context.entanglement
+    const entanglement = this.props.adapter || this.context.entanglement
 
     this.dismissers = [
       entanglement.onRender(this.props.name, this.handleRender),
@@ -34,7 +38,7 @@ export default React.createClass({
   },
 
   handleRender (data, handlerNames) {
-    const entanglement = this.context.entanglement
+    const entanglement = this.props.adapter || this.context.entanglement
 
     const buildHandler = (name) => (...args) => (
       entanglement.handle(this.props.name, name, args)
