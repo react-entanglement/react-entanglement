@@ -2,43 +2,44 @@ import React from 'react'
 import Entanglement from '.'
 import { render } from 'react-dom'
 
-const Dialog = React.createClass({
-  render () {
-    return <div onClick={() => this.props.onClick('batata frita', 123)}>
+const { Materialize, Scatter, passthroughCommunicationAdapter } = Entanglement
+
+function Dialog ({ items, onClick }) {
+  return (
+    <div onClick={() => onClick('batata frita', 123)}>
       <h1>Testing...</h1>
       <div>
-        {this.props.children}
+        <ul>
+          {items.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
       </div>
     </div>
-  }
-})
+  )
+}
 
-const communicationAdapter = Entanglement.passthroughCommunicationAdapter()
+const communicationAdapter = passthroughCommunicationAdapter()
 
 // Remote App
-
-const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
-
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
-    <MaterializedDialog />
+    <Materialize
+      name='Dialog'
+      component={Dialog}
+    />
   </Entanglement>
 ), document.getElementById('remote-app'))
 
 // Local App
-
-const ScatteredDialog = Entanglement.scatter('Dialog')
-
 render((
   <Entanglement communicationAdapter={communicationAdapter}>
     <div>
-      <ScatteredDialog onClick={(value, number) => window.alert('clicked' + value + number)}>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
-      </ScatteredDialog>
+      <Scatter
+        name='Dialog'
+        props={{
+          onClick: (value, number) => window.alert('clicked' + value + number),
+          items: ['one', 'two', 'three']
+        }}
+      />
     </div>
   </Entanglement>
 ), document.getElementById('main-app'))

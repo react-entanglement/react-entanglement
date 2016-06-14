@@ -2,50 +2,58 @@ import React from 'react'
 import splitHandlers from '../helpers/split-handlers'
 import CommunicationAdapterType from '../communication-adapters/communication-adapter-type'
 
-export default (componentName) => {
-  return React.createClass({
-    displayName: `Entanglement.scatter.${componentName}`,
+export default React.createClass({
+  displayName: 'Entanglement.Scatter',
 
-    contextTypes: {
-      entanglement: CommunicationAdapterType
-    },
+  contextTypes: {
+    entanglement: CommunicationAdapterType
+  },
 
-    componentWillUpdate: validate(componentName),
-    componentDidMount: update(componentName),
-    componentDidUpdate: update(componentName),
-    componentWillUnmount: unmount(componentName),
+  componentWillUpdate () {
+    validate(this)
+  },
 
-    // the wrapped component will not be rendered here
-    render () { return false }
-  })
-}
+  componentDidMount () {
+    update(this)
+  },
+  componentDidUpdate () {
+    update(this)
+  },
 
-const update = (componentName) => function () {
-  const { data, handlers } = splitHandlers(this.props)
-  const entanglement = this.context.entanglement
+  componentWillUnmount () {
+    unmount(this)
+  },
+
+  // the wrapped component will not be rendered here
+  render () { return false }
+})
+
+const update = (component) => {
+  const { data, handlers } = splitHandlers(component.props)
+  const entanglement = component.context.entanglement
   const handlerNames = Object.keys(handlers)
 
   // dismiss previous handlers and register new ones
-  this.dismissers = this.dismissers || []
-  this.dismissers.forEach((dismisser) => dismisser())
-  this.dismissers = handlerNames.map((handlerName) => (
+  component.dismissers = component.dismissers || []
+  component.dismissers.forEach((dismisser) => dismisser())
+  component.dismissers = handlerNames.map((handlerName) => (
     entanglement.onHandle(
-      componentName,
+      component.props.name,
       handlerName,
-      (args) => handlers[handlerName].apply(this, args)
+      (args) => handlers[handlerName].apply(component, args)
     )
   ))
 
-  entanglement.render(componentName, data, handlerNames)
+  entanglement.render(component.props.name, data, handlerNames)
 }
 
-const unmount = (componentName) => function () {
-  this.context.entanglement.unmount(componentName)
-  this.dismissers.forEach((dismisser) => dismisser())
-  this.dismissers = []
+const unmount = (component) => {
+  component.context.entanglement.unmount(component.props.name)
+  component.dismissers.forEach((dismisser) => dismisser())
+  component.dismissers = []
 }
 
-const validate = (componentName) => function () {
+const validate = (component) => {
   // only do it if NODE_ENV !== production
   // validate if there is a entanglement in the context
   // validate that the props should only have a shallow handlers
