@@ -1,4 +1,4 @@
-# <img src='react-entanglement.png' height='128px' /> React Entanglement
+# <img src='react-entanglement.png' height='128px' title='React Entanglement' />
 
 [![Build Status](https://travis-ci.org/pirelenito/react-entanglement.svg)](https://travis-ci.org/pirelenito/react-entanglement)
 [![npm version](https://badge.fury.io/js/react-entanglement.svg)](https://badge.fury.io/js/react-entanglement)
