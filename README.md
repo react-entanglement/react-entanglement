@@ -29,7 +29,7 @@ In some part of the application we prepare the props and select what element to 
 import { Scatter } from 'react-entanglement'
 import { render } from 'react-dom'
 
-export default (adapter) => {  
+export default (adapter) => {
   render(
     <Scatter
       name='Button'
@@ -71,7 +71,9 @@ export default (adapter) => {
 
 ### Example with Entanglement sugar
 
-Using a real React component allows you to place the scattering anywhere in the rendering tree. An example use case would be having a component that can either be rendered in place or in an iframe depending, while the props for it remain the same. Since the component can be placed anywhere on the rendering tree the adapter would be required to be passed down as a prop everywhere. Using the `Entanglement` you can just set the `adapter` once at the root of the tree.
+Using a real React component allows you to place the scattering anywhere in the rendering tree. An example use case would be having a component that can either be rendered in place or in an iframe, while the props for it remain the same.
+
+Since the component can be placed anywhere on the rendering tree, the adapter would be required to be passed down as a prop everywhere. Using the `Entanglement` component you can just set the `adapter` once at the root of the tree.
 
 Let's see how the previous example would look like, adding some extra markup so that the point is more obvious:
 
@@ -116,7 +118,6 @@ export default (adapter) => {
         <Materialize
           name='Button'
           component='Button'
-          adapter={adapter}
         />
       </div>
     </Entanglement>
