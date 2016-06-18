@@ -21,25 +21,23 @@ const adapter = passthroughCommunicationAdapter()
 
 // Remote App
 render((
-  <Entanglement adapter={adapter}>
-    <Materialize
-      name='Dialog'
-      component={Dialog}
-    />
-  </Entanglement>
+  <Materialize
+    name='Dialog'
+    component={Dialog}
+    adapter={adapter}
+  />
 ), document.getElementById('remote-app'))
 
 // Local App
 render((
-  <Entanglement adapter={adapter}>
-    <div>
-      <Scatter
-        name='Dialog'
-        props={{
-          onClick: (value, number) => window.alert('clicked' + value + number),
-          items: ['one', 'two', 'three']
-        }}
-      />
-    </div>
-  </Entanglement>
+  <div>
+    <Scatter
+      adapter={adapter}
+      name='Dialog'
+      props={{
+        onClick: (value, number) => window.alert('clicked' + value + number),
+        items: ['one', 'two', 'three']
+      }}
+    />
+  </div>
 ), document.getElementById('main-app'))
