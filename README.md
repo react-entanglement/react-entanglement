@@ -6,8 +6,6 @@
 
 A library to take a React component and render it in another location.
 
-**Warning:** Documentation, API and tests are still in infancy state, so use with care.
-
 ## Usage
 
 Install it with:
