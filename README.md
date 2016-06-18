@@ -16,11 +16,11 @@ npm install react-entanglement
 
 ### Key concepts
 
-React Entanglement works by taking a component name and props in one end and **scattering** them over a **adapter** into a target where the **materialization** is done.
+React Entanglement works by taking a component's name and props and **scattering** them over an **adapter** into a target where the **materialization** is done.
 
 ### Example with simple API
 
-In some part of the application we prepare the props and select what element to render. Note that in this part (where the `Scatter` is used) we don't need a reference to the component that we intend to render, since it's sent via the adapter by name.
+In some part of the application we prepare the props and select what element to render. Note that in this snippet (where the `Scatter` is used) we don't need a reference to the component that we intend to render, since it's sent via the adapter by name.
 
 ```javascript
 // scatter.js
@@ -39,11 +39,13 @@ export default (adapter) => {
     />
     , document.createElement('div'))
 }
-// The target needs not to be in the document in this example
-// no rendering will be done.
-// If you're wondering why using a React component at all then,
-// it will be more apparent in the syntax sugar example
 ```
+
+> The target needs not to be in the document since in this
+> example no rendering will be done.
+>
+> If you're wondering why using a React component at all then,
+> it will be more apparent in the syntax sugar example
 
 Let's place the materialization:
 
@@ -59,7 +61,7 @@ export default (adapter) => {
       <p>You can do what the button suggests:</p>
       <Materialize
         name='Button'
-        component='Button'
+        component={Button}
         adapter={adapter}
       />
     </div>
@@ -71,7 +73,7 @@ export default (adapter) => {
 
 Using a real React component allows you to place the scattering anywhere in the rendering tree. An example use case would be having a component that can either be rendered in place or in an iframe, while the props for it remain the same.
 
-Since the component can be placed anywhere on the rendering tree, the adapter would be required to be passed down as a prop everywhere. Using the `Entanglement` component you can just set the `adapter` once at the root of the tree.
+Since the component can be placed anywhere in the rendering tree, the adapter would be required to be passed down as a prop everywhere. Using the `Entanglement` component you can just set the `adapter` once at the root of the tree.
 
 Let's see how the previous example would look like, adding some extra markup so that the point is more obvious:
 
@@ -93,7 +95,7 @@ export default (adapter, showLocally) => {
       {
         showLocally ?
           : <Button {...buttonProps} />
-          ? <Scatter name='Button' props={props} />
+          ? <Scatter name='Button' props={buttonProps} />
       }
     </Entanglement>
   , document.getElementById('main-app'))
@@ -115,7 +117,7 @@ export default (adapter) => {
         <p>You can do what the button suggests:</p>
         <Materialize
           name='Button'
-          component='Button'
+          component={Button}
         />
       </div>
     </Entanglement>
