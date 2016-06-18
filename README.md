@@ -20,7 +20,7 @@ React Entanglement works by taking a component's name and props and **scattering
 
 ### Example with simple API
 
-In some part of the application we prepare the props and select what element to render. Note that in this snippet–where the `Scatter` is used–we don't need a reference to the component that we intend to render, since it's sent via the adapter by name.
+In some part of the application we prepare the props and select what element to render. Note that in this snippet (where the `Scatter` is used) we don't need a reference to the component that we intend to render, since it's sent via the adapter by name.
 
 ```javascript
 // scatter.js
