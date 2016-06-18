@@ -33,7 +33,7 @@ export default React.createClass({
 })
 
 const update = (component) => {
-  const { data, handlers } = splitHandlers(component.props)
+  const { data, handlers } = splitHandlers(component.props.props)
   const entanglement = component.props.adapter || component.context.entanglement
   const handlerNames = Object.keys(handlers)
 

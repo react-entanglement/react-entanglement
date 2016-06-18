@@ -45,7 +45,7 @@ export default React.createClass({
     )
 
     const props = {
-      ...data.props,
+      ...data,
       ...handlerNames.reduce((acc, name) => (
         { ...acc, [name]: buildHandler(name) }
       ), {})
