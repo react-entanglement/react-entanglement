@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pirelenito/react-entanglement.git"
+    "url": "git+https://github.com/react-entanglement/react-entanglement.git"
   },
   "keywords": [
     "react",
@@ -31,9 +31,9 @@
   "author": "pirelenito",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pirelenito/react-entanglement/issues"
+    "url": "https://github.com/react-entanglement/react-entanglement/issues"
   },
-  "homepage": "https://github.com/pirelenito/react-entanglement#readme",
+  "homepage": "https://github.com/react-entanglement/react-entanglement#readme",
   "peerDependencies": {
     "react": "^0.14 || ^15.0.0"
   },
