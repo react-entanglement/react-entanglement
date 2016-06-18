@@ -1,7 +1,7 @@
 import { PropTypes } from 'react'
 
 /**
- * Communication Adapter Type
+ * Adapter Type
  */
 export default PropTypes.shape({
   unmount: PropTypes.func.isRequired,

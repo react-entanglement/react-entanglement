@@ -18,7 +18,7 @@ npm install react-entanglement
 
 ### Key concepts
 
-React Entanglement works by taking a component name and props in one end and **scattering** them over a **communication adapter** into a target where the **materialization** is done.
+React Entanglement works by taking a component name and props in one end and **scattering** them over a **adapter** into a target where the **materialization** is done.
 
 ### Example with simple API
 
@@ -127,11 +127,11 @@ export default (adapter) => {
 
 Note how this allows the remote target UI to be controlled and kept in sync with the main application without the need to synchronizing data, instead passing in just the rendering information.
 
-### Entanglement and communication adapter
+### Entanglement and adapter
 
-Entanglement between the two locations is achieved by using a proper `adapter`. A default `Entanglement.passthroughCommunicationAdapter` implementation is provided; it can be used if *entanglement* is to be achieved in the same `window`.
+Entanglement between the two locations is achieved by using a proper `adapter`. A default `Entanglement.passthroughAdapter` implementation is provided; it can be used if *entanglement* is to be achieved in the same `window`.
 
-But it should be possible to create other *communication adapters* to do *entanglement* using [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) or even [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
+But it should be possible to create other *adapters* to do *entanglement* using [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) or even [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
 The `adapter` signature should be:
 

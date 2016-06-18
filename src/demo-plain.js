@@ -2,7 +2,7 @@ import React from 'react'
 import Entanglement from '.'
 import { render } from 'react-dom'
 
-const { Materialize, Scatter, passthroughCommunicationAdapter } = Entanglement
+const { Materialize, Scatter, passthroughAdapter } = Entanglement
 
 function Dialog ({ items, onClick }) {
   return (
@@ -17,7 +17,7 @@ function Dialog ({ items, onClick }) {
   )
 }
 
-const adapter = passthroughCommunicationAdapter()
+const adapter = passthroughAdapter()
 
 // Remote App
 render((

@@ -1,13 +1,13 @@
 import React from 'react'
-import CommunicationAdapterType from '../communication-adapters/communication-adapter-type'
+import AdapterType from '../adapters/adapter-type'
 
 export default React.createClass({
   propTypes: {
-    adapter: CommunicationAdapterType
+    adapter: AdapterType
   },
 
   childContextTypes: {
-    entanglement: CommunicationAdapterType
+    entanglement: AdapterType
   },
 
   getChildContext () {
