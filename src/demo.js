@@ -19,7 +19,6 @@ function Dialog ({ items, onClick }) {
 
 const adapter = passthroughAdapter()
 
-console.log('!!!')
 // Remote App
 render((
   <Entanglement adapter={adapter}>

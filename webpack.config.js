@@ -2,7 +2,7 @@ var sagui = require('sagui')
 
 module.exports = sagui().webpack({
   sagui: {
-    pages: ['demo', 'demo-plain', 'demo-conditional'],
+    pages: ['demo', 'demo-plain'],
 
     enabledPresets: [
       'babel',
