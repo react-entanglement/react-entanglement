@@ -1,11 +1,10 @@
-import _Entanglement from './components/entanglement'
-import _materialize from './components/materialize'
-import _passthroughAdapter from './adapters/passthrough-adapter'
-import _scatter from './components/scatter'
+import Entanglement from './components/entanglement'
+import Materialize from './components/materialize'
+import passthroughAdapter from './adapters/passthrough-adapter'
+import scatter from './components/scatter'
 
-export const Entanglement = _Entanglement
-Entanglement.Materialize = _materialize
-Entanglement.passthroughAdapter = _passthroughAdapter
-Entanglement.Scatter = _scatter
+Entanglement.Materialize = Materialize
+Entanglement.passthroughAdapter = passthroughAdapter
+Entanglement.scatter = scatter
 
 export default Entanglement
