@@ -37,7 +37,7 @@ export default function scatter (componentName) {
   }
 
   return React.createClass({
-    displayName: 'Entanglement.Scatter',
+    displayName: `Entanglement.scatter.${componentName}`,
 
     contextTypes: {
       entanglement: AdapterType
