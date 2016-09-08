@@ -18,9 +18,12 @@ function Dialog ({ items, onClick }) {
 const adapter = Entanglement.passthroughAdapter()
 
 // Remote App
+
+const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
+
 render((
   <Entanglement adapter={adapter}>
-    <Entanglement.Materialize name='Dialog' component={Dialog} />
+    <MaterializedDialog />
   </Entanglement>
 ), document.getElementById('remote-app'))
 
