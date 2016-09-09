@@ -26,7 +26,7 @@ Entanglement between the two rendering trees is achieved by using a proper `adap
 
 Using that adapter a simple implementation would be:
 
-```jsx
+```js
 import React from 'react'
 import { render } from 'react-dom'
 
@@ -43,7 +43,7 @@ render((
 
 Once the basic communication and entanglement is setup, we can start **scattering** components. So imagine you have an application with a dialog that is normaly render as:
 
-```jsx
+```js
 import React from 'react'
 import { render } from 'react-dom'
 
@@ -61,13 +61,13 @@ render((
 
 The only change we need to do to allow this component to be rendered is create a **scattered* version of it:
 
-```jsx
+```js
 const ScatteredDialog = Entanglement.scatter('Dialog')
 ```
 
 And render it instead:
 
-```jsx
+```js
 <Entanglement adapter={Entanglement.passthroughAdapter()}>
   <ScatteredDialog
     onClick={(value, number) => window.alert('clicked' + value + number)}
@@ -80,7 +80,7 @@ And render it instead:
 
 Given there is a **scattered** component, we can create an **entanglement** in a separated rendered tree and **materialize** the component:
 
-```jsx
+```js
 import React from 'react'
 import { render } from 'react-dom'
 import Entanglement from 'react-entanglement'
