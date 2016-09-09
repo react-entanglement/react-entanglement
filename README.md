@@ -4,134 +4,98 @@
 [![npm version](https://badge.fury.io/js/react-entanglement.svg)](https://badge.fury.io/js/react-entanglement)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-A library to take a React component and render it in another location.
+**Scatter** a component from your main React rendering tree and render it as an **entangled** component somewhere else.
 
-## Usage
+Its main goal it to allow the application state to live in a centralized location while components can be rendered somewhere else (iframes, separate tabs).
 
-Install it with:
+## Installation
+
+Install the [npm package](https://www.npmjs.com/package/react-entanglement):
 
 ```bash
 npm install react-entanglement
 ```
 
-### Key concepts
+## API
 
-React Entanglement works by taking a component's name and props and **scattering** them over an **adapter** into a target where the **materialization** is done.
+### `Entanglement`
 
-### Example with simple API
+This components setup the infrastructure that allows a component in its children tree to be **scattered** to a separated **entangled** tree.
 
-In some part of the application we prepare the props and select what element to render. Note that in this snippet (where the `Scatter` is used) we don't need a reference to the component that we intend to render, since it's sent via the adapter by name.
+Entanglement between the two rendering trees is achieved by using a proper `adapter`. A default `Entanglement.passthroughAdapter` implementation is provided; it can be used if *entanglement* is to be achieved in the same `window`.
 
-```javascript
-// scatter.js
-import { Scatter } from 'react-entanglement'
+Using that adapter a simple implementation would be:
+
+```jsx
+import React from 'react'
 import { render } from 'react-dom'
 
-export default (adapter) => {
-  render(
-    <Scatter
-      name='Button'
-      props={{
-        label: 'Click me',
-        onClick: () => alert('remote button was clicked')
-      }}
-      adapter={adapter}
+import Entanglement from 'react-entanglement'
+
+render((
+  <Entanglement adapter={Entanglement.passthroughAdapter()}>
+    { /* any children component here can be scattered */ }
+  </Entanglement>
+), document.getElementById('app'))
+```
+
+### `Entanglement.scatter`
+
+Once the basic communication and entanglement is setup, we can start **scattering** components. So imagine you have an application with a dialog that is normaly render as:
+
+```jsx
+import React from 'react'
+import { render } from 'react-dom'
+
+import Entanglement from 'react-entanglement'
+
+render((
+  <Entanglement adapter={Entanglement.passthroughAdapter()}>
+    <Dialog
+      onClick={(value, number) => window.alert('clicked' + value + number)}
+      items={['one', 'two', 'three']}
     />
-    , document.createElement('div'))
-}
+  </Entanglement>
+), document.getElementById('app'))
 ```
 
-> The target needs not to be in the document since in this
-> example no rendering will be done.
->
-> If you're wondering why using a React component at all then,
-> it will be more apparent in the syntax sugar example
+The only change we need to do to allow this component to be rendered is create a **scattered* version of it:
 
-Let's place the materialization:
+```jsx
+const ScatteredDialog = Entanglement.scatter('Dialog')
+```
 
-```javascript
-// materialize.js
-import { Materialize } from 'react-entanglement'
+And render it instead:
+
+```jsx
+<Entanglement adapter={Entanglement.passthroughAdapter()}>
+  <ScatteredDialog
+    onClick={(value, number) => window.alert('clicked' + value + number)}
+    items={['one', 'two', 'three']}
+  />
+</Entanglement>
+```
+
+### `Entanglement.materialize`
+
+Given there is a **scattered** component, we can create an **entanglement** in a separated rendered tree and **materialize** the component:
+
+```jsx
+import React from 'react'
 import { render } from 'react-dom'
-import Button from './components/Button'
+import Entanglement from 'react-entanglement'
+import Dialog from './dialog'
 
-export default (adapter) => {
-  render(
-    <div>
-      <p>You can do what the button suggests:</p>
-      <Materialize
-        name='Button'
-        component={Button}
-        adapter={adapter}
-      />
-    </div>
-  , document.getElementById('main-app'))
-}
+const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
+
+render((
+  <Entanglement adapter={Entanglement.passthroughAdapter()}>
+    <MaterializedDialog />
+  </Entanglement>
+), document.getElementById('remote-app'))
 ```
 
-### Example with Entanglement sugar
-
-Using a real React component allows you to place the scattering anywhere in the rendering tree. An example use case would be having a component that can either be rendered in place or in an iframe, while the props for it remain the same.
-
-Since the component can be placed anywhere in the rendering tree, the adapter would be required to be passed down as a prop everywhere. Using the `Entanglement` component you can just set the `adapter` once at the root of the tree.
-
-Let's see how the previous example would look like, adding some extra markup so that the point is more obvious:
-
-```javascript
-// scatter.js
-import Entanglement, { Scatter } from 'react-entanglement'
-import { render } from 'react-dom'
-
-export default (adapter, showLocally) => {
-  const buttonProps = {
-    label: 'Click me',
-    onClick: () => alert('button was clicked')
-  }
-
-  render(
-    <Entanglement adapter={adapter}>
-      <p>The following button might appear here or somewhere else.</p>
-      <p>Very spooky 👻</p>
-      {
-        showLocally ?
-          : <Button {...buttonProps} />
-          ? <Scatter name='Button' props={buttonProps} />
-      }
-    </Entanglement>
-  , document.getElementById('main-app'))
-}
-```
-
-Something similar can be done in the remote:
-
-```javascript
-// materialize.js
-import Entanglement, { Materialize } from 'react-entanglement'
-import { render } from 'react-dom'
-import Button from './components/Button'
-
-export default (adapter) => {
-  render(
-    <Entanglement adapter={adapter}>
-      <div>
-        <p>You can do what the button suggests:</p>
-        <Materialize
-          name='Button'
-          component={Button}
-        />
-      </div>
-    </Entanglement>
-  , document.getElementById('remote-app'))
-}
-```
-
-Note how this allows the remote target UI to be controlled and kept in sync with the main application without the need to synchronizing data, instead passing in just the rendering information.
-
-### Entanglement and adapter
-
-Entanglement between the two locations is achieved by using a proper `adapter`. A default `Entanglement.passthroughAdapter` implementation is provided; it can be used if *entanglement* is to be achieved in the same `window`.
-
-But it should be possible to create other *adapters* to do *entanglement* using [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) or even [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
+## Adapters
 
 The `adapter` signature should be:
 
