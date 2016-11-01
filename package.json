@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "prepublish": "not-in-install && npm prune && npm test && npm run dist || in-install",
+    "build:demo": "cross-env NODE_ENV=production sagui build --optimize",
     "build": "rm -rf lib && babel src --out-dir lib --ignore *.spec.js",
     "develop": "sagui develop --port 3000",
     "dist": "npm run build",
