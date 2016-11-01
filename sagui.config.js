@@ -3,5 +3,9 @@
  * see: http://sagui.js.org/
  */
 module.exports = {
-  pages: ['index']
+  pages: ['index'],
+
+  style: {
+    cssModules: false
+  }
 }

@@ -1,0 +1,10 @@
+body {
+  background: #ecf0f1;
+}
+
+.logo {
+  margin: 5em auto;
+  display: block;
+}
+
+@import '~tachyons/css/tachyons.css'
