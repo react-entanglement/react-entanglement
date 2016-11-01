@@ -17,11 +17,11 @@ export default function materialize (componentName, ComponentConstructor) {
     },
 
     componentDidMount () {
-      const entanglement = this.context.entanglement
+      const { materializer } = this.context.entanglement
 
       this.dismissers = [
-        entanglement.onRender(this.props.name, this.handleRender),
-        entanglement.onUnmount(this.props.name, this.handleUnmount)
+        materializer.addRenderListener(this.props.name, this.handleRender),
+        materializer.addUnmountListener(this.props.name, this.handleUnmount)
       ]
     },
 
@@ -35,10 +35,10 @@ export default function materialize (componentName, ComponentConstructor) {
     },
 
     handleRender (data, handlerNames) {
-      const entanglement = this.context.entanglement
+      const { materializer } = this.context.entanglement
 
       const buildHandler = (name) => (...args) => (
-        entanglement.handle(this.props.name, name, args)
+        materializer.handle(this.props.name, name, args)
       )
 
       const props = {
