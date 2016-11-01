@@ -59,7 +59,7 @@ render((
 ), document.getElementById('app'))
 ```
 
-The only change we need to do to allow this component to be rendered is create a **scattered* version of it:
+The only change we need to do to allow this component to be rendered is create a **scattered** version of it:
 
 ```js
 const ScatteredDialog = Entanglement.scatter('Dialog')
@@ -127,7 +127,6 @@ npm start
 And open:
 
 - [http://localhost:3000/demo.html](http://localhost:3000/demo.html)
-- [http://localhost:3000/demo-plain.html](http://localhost:3000/demo-plain.html)
 
 Or run the unit tests:
 
