@@ -7,16 +7,18 @@
     "lib"
   ],
   "scripts": {
+    "prepublish": "not-in-install && npm prune && npm test && npm run dist || in-install",
+    "build:demo": "cross-env NODE_ENV=production sagui build --optimize",
     "build": "rm -rf lib && babel src --out-dir lib --ignore *.spec.js",
-    "develop": "webpack-dev-server --port 3000 --host 0.0.0.0",
-    "dist": "NODE_ENV=production npm run build -- -p",
+    "develop": "sagui develop --port 3000",
+    "dist": "npm run build",
     "start": "npm run develop",
-    "test": "npm run test:lint && npm run test:unit",
-    "test:lint": "eslint src/",
-    "test:unit": "NODE_ENV=test karma start",
-    "test:coverage": "SAGUI_COVERAGE=true npm run test:unit",
-    "test:unit:watch": "npm run test -- --no-single-run --auto-watch",
-    "prepublish": "not-in-install && npm prune && npm test && npm run build || in-install"
+    "test": "npm run test:lint && npm run test:typecheck && npm run test:unit",
+    "test:coverage": "npm run test:unit -- --coverage",
+    "test:lint": "sagui lint",
+    "test:typecheck": "sagui typecheck",
+    "test:unit": "cross-env NODE_ENV=test sagui test",
+    "test:unit:watch": "npm run test:unit -- --watch"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,6 @@
     "in-publish": "^2.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "sagui": "^5.0.0-rc.7"
+    "sagui": "^7.1.1"
   }
 }

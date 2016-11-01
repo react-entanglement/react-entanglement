@@ -1,0 +1,56 @@
+body {
+  font-family: 'helvetica neue', helvetica, sans-serif;
+  line-height: 1.5;
+  font-size: 1.25em;
+}
+
+pre {
+  background: #263238;
+  color: #5fb3b3;
+  padding: 1em;
+  overflow-x: scroll;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+}
+
+.app {
+  background: #ecf0f1;
+  padding: 1em;
+  height: 3em;
+}
+
+.logo {
+  width: 70%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 3em;
+}
+
+.introduction {
+  text-align: center;
+}
+
+input {
+  line-height: 1.5;
+  font-size: 1.25em;
+  width: 100%;
+}
+
+article {
+  padding: 0.5em;
+  box-sizing: border-box;
+}
+
+.main-example, .remote-example {
+  width: 100%;
+  float: left;
+}
+
+@media screen and (min-width: 600px) {
+  .main-example, .remote-example {
+    width: 50%;
+  }
+}

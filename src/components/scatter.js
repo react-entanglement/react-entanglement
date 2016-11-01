@@ -5,27 +5,27 @@ import AdapterType from '../adapters/adapter-type'
 export default function scatter (componentName) {
   const update = (component) => {
     const { data, handlers } = splitHandlers(component.props)
-    const entanglement = component.context.entanglement
+    const { scatterer } = component.context.entanglement
     const handlerNames = Object.keys(handlers)
 
     // dismiss previous handlers and register new ones
     component.dismissers = component.dismissers || []
     component.dismissers.forEach((dismisser) => dismisser())
     component.dismissers = handlerNames.map((handlerName) => (
-      entanglement.onHandle(
+      scatterer.addHandlerListener(
         componentName,
         handlerName,
         (args) => handlers[handlerName].apply(component, args)
       )
     ))
 
-    entanglement.render(componentName, data, handlerNames)
+    scatterer.render(componentName, data, handlerNames)
   }
 
   const unmount = (component) => {
-    const entanglement = component.context.entanglement
+    const { scatterer } = component.context.entanglement
 
-    entanglement.unmount(componentName)
+    scatterer.unmount(componentName)
     component.dismissers.forEach((dismisser) => dismisser())
     component.dismissers = []
   }
@@ -37,7 +37,7 @@ export default function scatter (componentName) {
   }
 
   return React.createClass({
-    displayName: 'Entanglement.Scatter',
+    displayName: `Entanglement.scatter.${componentName}`,
 
     contextTypes: {
       entanglement: AdapterType

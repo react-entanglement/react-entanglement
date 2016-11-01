@@ -4,10 +4,14 @@ import { PropTypes } from 'react'
  * Adapter Type
  */
 export default PropTypes.shape({
-  unmount: PropTypes.func.isRequired,
-  render: PropTypes.func.isRequired,
-  onHandle: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired,
-  onRender: PropTypes.func.isRequired,
-  handle: PropTypes.func.isRequired
+  scatterer: PropTypes.shape({
+    unmount: PropTypes.func.isRequired,
+    render: PropTypes.func.isRequired,
+    addHandlerListener: PropTypes.func.isRequired
+  }),
+  materializer: PropTypes.shape({
+    addUnmountListener: PropTypes.func.isRequired,
+    addRenderListener: PropTypes.func.isRequired,
+    handle: PropTypes.func.isRequired
+  })
 })
