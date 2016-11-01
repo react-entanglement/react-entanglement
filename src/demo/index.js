@@ -21,10 +21,8 @@ export default React.createClass({
       <img className='logo' src={logo} />
 
       <article className='introduction'>
-        <p>Scatter a component from your main React rendering tree and render it as an entangled component somewhere else.</p>
-        <p>Its main goal it to allow the application state to live in a centralized location while components can be rendered somewhere else (iframes, separate tabs).</p>
+        <p>Allow the application state to live in a centralized location while components can be rendered somewhere else (iframes, separate tabs).</p>
         <pre>npm install --save react-entanglement</pre>
-
       </article>
 
       <article className='main-example'>

@@ -28,6 +28,15 @@ main {
   width: 70%;
   display: block;
   margin: 0 auto;
+  margin-top: 3em;
+}
+
+.introduction {
+  text-align: center;
+}
+
+.introduction p {
+  margin: 3em 0;
 }
 
 input {
