@@ -101,20 +101,21 @@ The `adapter` signature should be:
 
 ```js
 const adapter = {
-  // methods used by the scatter
-  unmount: (componentName) => {},
-  render: (componentName, data, handlerNames) => {},
-  onHandle: (componentName, handlerName, cb) => {},
+  scatterer: {
+    unmount: (componentName) => {},
+    render: (componentName, data, handlerNames) => {},
+    addHandlerListener: (componentName, handlerName, cb) => {}
+  },
 
-  // methods used by the materializer
-
-  onUnmount: (componentName, cb) => {},
-  onRender: (componentName, cb) => {},
-  handle: (componentName, handlerName, args) => {}
+  materializer: {
+    addUnmountListener: (componentName, cb) => {},
+    addRenderListener: (componentName, cb) => {},
+    handle: (componentName, handlerName, args) => {}
+  }
 }
 ```
 
-The methods `onHandle`, `onUnmount` and `onRender` must return a function that can be used to dismiss the listener that was configured using the passed `cb`.
+The methods `addHandlerListener`, `addUnmountListener` and `addRenderListener` must return a function that can be used to dismiss the listener that was configured using the passed `cb`.
 
 ## Development
 
@@ -126,7 +127,7 @@ npm start
 
 And open:
 
-- [http://localhost:3000/demo.html](http://localhost:3000/demo.html)
+- [http://localhost:3000](http://localhost:3000)
 
 Or run the unit tests:
 
