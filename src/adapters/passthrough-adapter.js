@@ -7,7 +7,9 @@ export default () => {
     scatterer: {
       unmount: (componentName) => emiter.emit(`unmount:${componentName}`),
 
-      render: (componentName, data, handlerNames) => emiter.emit(`render:${componentName}`, data, handlerNames),
+      render: (componentName, data, handlerNames) => {
+        emiter.emit(`render:${componentName}`, data, handlerNames)
+      },
 
       addHandlerListener: (componentName, handlerName, cb) => {
         const eventName = `handle:${componentName}:${handlerName}`
@@ -30,7 +32,6 @@ export default () => {
       },
 
       handle: (componentName, handlerName, args) => emiter.emit(`handle:${componentName}:${handlerName}`, args)
-
     }
   }
 }

@@ -1,4 +1,4 @@
-import Entanglement from '.'
+import Entanglement from './entanglement'
 
 describe('Entanglement', () => {
   it('should expose the library', () => {

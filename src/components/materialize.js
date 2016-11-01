@@ -20,8 +20,8 @@ export default function materialize (componentName, ComponentConstructor) {
       const { materializer } = this.context.entanglement
 
       this.dismissers = [
-        materializer.addRenderListener(this.props.name, this.handleRender),
-        materializer.addUnmountListener(this.props.name, this.handleUnmount)
+        materializer.addRenderListener(componentName, this.handleRender),
+        materializer.addUnmountListener(componentName, this.handleUnmount)
       ]
     },
 
@@ -38,7 +38,7 @@ export default function materialize (componentName, ComponentConstructor) {
       const { materializer } = this.context.entanglement
 
       const buildHandler = (name) => (...args) => (
-        materializer.handle(this.props.name, name, args)
+        materializer.handle(componentName, name, args)
       )
 
       const props = {
