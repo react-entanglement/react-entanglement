@@ -33,10 +33,6 @@ main {
   text-align: center;
 }
 
-.introduction p {
-  margin: 3em 0;
-}
-
 input {
   line-height: 1.5;
   font-size: 1.25em;

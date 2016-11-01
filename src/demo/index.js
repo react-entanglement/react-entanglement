@@ -22,6 +22,7 @@ export default React.createClass({
 
       <article className='introduction'>
         <p>Allow the application state to live in a centralized location while components can be rendered somewhere else (iframes, separate tabs).</p>
+        <a className='github-button' href='https://github.com/react-entanglement/react-entanglement' data-style='mega' data-count-href='/react-entanglement/react-entanglement/stargazers' data-count-api='/repos/react-entanglement/react-entanglement#stargazers_count' data-count-aria-label='# stargazers on GitHub' aria-label='Star react-entanglement/react-entanglement on GitHub'>Star</a>
         <pre>npm install --save react-entanglement</pre>
       </article>
 
