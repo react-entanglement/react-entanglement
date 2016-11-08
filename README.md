@@ -95,6 +95,20 @@ render((
 ), document.getElementById('remote-app'))
 ```
 
+### React Context
+
+Entanglement also has support to [context props](https://facebook.github.io/react/docs/context.html), but you need to explicitly define which `contextTypes` to scatter and materialize while defining the components.
+
+Just add an extra `contextTypes` option while defining the Entanglement components, example:
+
+```js
+Entanglement.scatter({ contextTypes: { color: React.PropTypes.string }, name: 'Dialog' })
+```
+
+```js
+Entanglement.materialize({ contextTypes: { color: React.PropTypes.string }, name: 'Dialog', constructor: Dialog })
+```
+
 ## Adapters
 
 The `adapter` signature should be:
