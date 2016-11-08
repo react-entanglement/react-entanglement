@@ -1,27 +1,37 @@
 import React from 'react'
 import AdapterType from '../adapters/adapter-type'
 
-export default function materialize (componentName, ComponentConstructor) {
+export default function materialize ({ name, constructor, contextTypes = {} }) {
   return React.createClass({
-    displayName: `Entanglement.materialize.${componentName}`,
+    displayName: `Entanglement.materialize.${name}`,
 
     contextTypes: {
       entanglement: AdapterType
     },
 
+    childContextTypes: {
+      entanglement: AdapterType,
+      ...contextTypes
+    },
+
     getInitialState () {
       return {
         isMounted: false,
-        props: {}
+        props: {},
+        context: {}
       }
+    },
+
+    getChildContext () {
+      return this.state.context || {}
     },
 
     componentDidMount () {
       const { materializer } = this.context.entanglement
 
       this.dismissers = [
-        materializer.addRenderListener(componentName, this.handleRender),
-        materializer.addUnmountListener(componentName, this.handleUnmount)
+        materializer.addRenderListener(name, this.handleRender),
+        materializer.addUnmountListener(name, this.handleUnmount)
       ]
     },
 
@@ -34,26 +44,26 @@ export default function materialize (componentName, ComponentConstructor) {
       this.setState({ isMounted: false })
     },
 
-    handleRender (data, handlerNames) {
+    handleRender (data, handlerNames, context) {
       const { materializer } = this.context.entanglement
 
-      const buildHandler = (name) => (...args) => (
-        materializer.handle(componentName, name, args)
+      const buildHandler = (handlerName) => (...args) => (
+        materializer.handle(name, handlerName, args)
       )
 
       const props = {
         ...data,
-        ...handlerNames.reduce((acc, name) => (
-          { ...acc, [name]: buildHandler(name) }
+        ...handlerNames.reduce((acc, handlerName) => (
+          { ...acc, [handlerName]: buildHandler(handlerName) }
         ), {})
       }
 
-      this.setState({ isMounted: true, props })
+      this.setState({ isMounted: true, props, context })
     },
 
     render () {
       const { isMounted, props } = this.state
-      return isMounted && <ComponentConstructor {...props} />
+      return isMounted && React.createElement(constructor, props)
     }
   })
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Entanglement from '../entanglement'
 
-const ScatteredField = Entanglement.scatter('Field')
+const ScatteredField = Entanglement.scatter({ name: 'Field' })
 
 export default React.createClass({
   getInitialState () {

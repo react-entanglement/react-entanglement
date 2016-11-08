@@ -62,10 +62,10 @@ render((
 The only change we need to do to allow this component to be rendered is create a **scattered** version of it:
 
 ```js
-const ScatteredDialog = Entanglement.scatter('Dialog')
+const ScatteredDialog = Entanglement.scatter({ name: 'Dialog' })
 ```
 
-And render it instead:
+And render that instead of the real component:
 
 ```js
 <Entanglement adapter={Entanglement.passthroughAdapter()}>
@@ -86,13 +86,27 @@ import { render } from 'react-dom'
 import Entanglement from 'react-entanglement'
 import Dialog from './dialog'
 
-const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
+const MaterializedDialog = Entanglement.materialize({ name: 'Dialog', constructor: Dialog })
 
 render((
   <Entanglement adapter={Entanglement.passthroughAdapter()}>
     <MaterializedDialog />
   </Entanglement>
 ), document.getElementById('remote-app'))
+```
+
+### React Context
+
+Entanglement also has support to [context props](https://facebook.github.io/react/docs/context.html), but you need to explicitly define which `contextTypes` to scatter and materialize while defining the components.
+
+Just add an extra `contextTypes` option while defining the Entanglement components, example:
+
+```js
+Entanglement.scatter({ contextTypes: { color: React.PropTypes.string }, name: 'Dialog' })
+```
+
+```js
+Entanglement.materialize({ contextTypes: { color: React.PropTypes.string }, name: 'Dialog', constructor: Dialog })
 ```
 
 ## Adapters
@@ -103,7 +117,7 @@ The `adapter` signature should be:
 const adapter = {
   scatterer: {
     unmount: (componentName) => {},
-    render: (componentName, data, handlerNames) => {},
+    render: (componentName, data, handlerNames, context) => {},
     addHandlerListener: (componentName, handlerName, cb) => {}
   },
 
@@ -114,6 +128,8 @@ const adapter = {
   }
 }
 ```
+
+You can check the default [`passthroughAdapter`](./src/adapters/passthrough-adapter.js) as a reference implementation.
 
 The methods `addHandlerListener`, `addUnmountListener` and `addRenderListener` must return a function that can be used to dismiss the listener that was configured using the passed `cb`.
 

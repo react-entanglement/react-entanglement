@@ -2,7 +2,7 @@ import React from 'react'
 import splitHandlers from '../helpers/split-handlers'
 import AdapterType from '../adapters/adapter-type'
 
-export default function scatter (componentName) {
+export default function scatter ({ name, contextTypes = {} }) {
   const update = (component) => {
     const { data, handlers } = splitHandlers(component.props)
     const { scatterer } = component.context.entanglement
@@ -13,19 +13,21 @@ export default function scatter (componentName) {
     component.dismissers.forEach((dismisser) => dismisser())
     component.dismissers = handlerNames.map((handlerName) => (
       scatterer.addHandlerListener(
-        componentName,
+        name,
         handlerName,
         (args) => handlers[handlerName].apply(component, args)
       )
     ))
 
-    scatterer.render(componentName, data, handlerNames)
+    const context = extractContext(component.context, contextTypes)
+
+    scatterer.render(name, data, handlerNames, context)
   }
 
   const unmount = (component) => {
     const { scatterer } = component.context.entanglement
 
-    scatterer.unmount(componentName)
+    scatterer.unmount(name)
     component.dismissers.forEach((dismisser) => dismisser())
     component.dismissers = []
   }
@@ -37,10 +39,11 @@ export default function scatter (componentName) {
   }
 
   return React.createClass({
-    displayName: `Entanglement.scatter.${componentName}`,
+    displayName: `Entanglement.scatter.${name}`,
 
     contextTypes: {
-      entanglement: AdapterType
+      entanglement: AdapterType,
+      ...contextTypes
     },
 
     componentWillUpdate () {
@@ -63,3 +66,7 @@ export default function scatter (componentName) {
   })
 }
 
+function extractContext (context, contextTypes) {
+  return Object.keys(contextTypes)
+    .reduce((acc, key) => ({ ...acc, [key]: context[key] }), {})
+}
