@@ -27,8 +27,8 @@ describe('Entanglement', () => {
       }
 
       const adapter = Entanglement.passthroughAdapter()
-      const ScatteredExample = Entanglement.scatter('Example')
-      const MaterializedExample = Entanglement.materialize('Example', Example)
+      const ScatteredExample = Entanglement.scatter({ name: 'Example' })
+      const MaterializedExample = Entanglement.materialize({ name: 'Example', constructor: Example })
 
       function Main () {
         return (
@@ -62,8 +62,8 @@ describe('Entanglement', () => {
       }
 
       const adapter = Entanglement.passthroughAdapter()
-      const ScatteredExample = Entanglement.scatter('Example', { lastName: PropTypes.string })
-      const MaterializedExample = Entanglement.materialize('Example', Example, { lastName: PropTypes.string })
+      const ScatteredExample = Entanglement.scatter({ name: 'Example', contextTypes: { lastName: PropTypes.string } })
+      const MaterializedExample = Entanglement.materialize({ name: 'Example', constructor: Example, contextTypes: { lastName: PropTypes.string } })
 
       class Main extends Component {
         getChildContext () {

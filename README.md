@@ -62,10 +62,10 @@ render((
 The only change we need to do to allow this component to be rendered is create a **scattered** version of it:
 
 ```js
-const ScatteredDialog = Entanglement.scatter('Dialog')
+const ScatteredDialog = Entanglement.scatter({ name: 'Dialog' })
 ```
 
-And render it instead:
+And render that instead of the real component:
 
 ```js
 <Entanglement adapter={Entanglement.passthroughAdapter()}>
@@ -86,7 +86,7 @@ import { render } from 'react-dom'
 import Entanglement from 'react-entanglement'
 import Dialog from './dialog'
 
-const MaterializedDialog = Entanglement.materialize('Dialog', Dialog)
+const MaterializedDialog = Entanglement.materialize({ name: 'Dialog', constructor: Dialog })
 
 render((
   <Entanglement adapter={Entanglement.passthroughAdapter()}>
@@ -103,7 +103,7 @@ The `adapter` signature should be:
 const adapter = {
   scatterer: {
     unmount: (componentName) => {},
-    render: (componentName, data, handlerNames) => {},
+    render: (componentName, data, handlerNames, context) => {},
     addHandlerListener: (componentName, handlerName, cb) => {}
   },
 

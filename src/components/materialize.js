@@ -1,9 +1,9 @@
 import React from 'react'
 import AdapterType from '../adapters/adapter-type'
 
-export default function materialize (componentName, ComponentConstructor, componentContextTypes = {}) {
+export default function materialize ({ name, constructor, contextTypes = {} }) {
   return React.createClass({
-    displayName: `Entanglement.materialize.${componentName}`,
+    displayName: `Entanglement.materialize.${name}`,
 
     contextTypes: {
       entanglement: AdapterType
@@ -11,7 +11,7 @@ export default function materialize (componentName, ComponentConstructor, compon
 
     childContextTypes: {
       entanglement: AdapterType,
-      ...componentContextTypes
+      ...contextTypes
     },
 
     getInitialState () {
@@ -30,8 +30,8 @@ export default function materialize (componentName, ComponentConstructor, compon
       const { materializer } = this.context.entanglement
 
       this.dismissers = [
-        materializer.addRenderListener(componentName, this.handleRender),
-        materializer.addUnmountListener(componentName, this.handleUnmount)
+        materializer.addRenderListener(name, this.handleRender),
+        materializer.addUnmountListener(name, this.handleUnmount)
       ]
     },
 
@@ -47,14 +47,14 @@ export default function materialize (componentName, ComponentConstructor, compon
     handleRender (data, handlerNames, context) {
       const { materializer } = this.context.entanglement
 
-      const buildHandler = (name) => (...args) => (
-        materializer.handle(componentName, name, args)
+      const buildHandler = (handlerName) => (...args) => (
+        materializer.handle(name, handlerName, args)
       )
 
       const props = {
         ...data,
-        ...handlerNames.reduce((acc, name) => (
-          { ...acc, [name]: buildHandler(name) }
+        ...handlerNames.reduce((acc, handlerName) => (
+          { ...acc, [handlerName]: buildHandler(handlerName) }
         ), {})
       }
 
@@ -63,7 +63,7 @@ export default function materialize (componentName, ComponentConstructor, compon
 
     render () {
       const { isMounted, props } = this.state
-      return isMounted && <ComponentConstructor {...props} />
+      return isMounted && React.createElement(constructor, props)
     }
   })
 }
