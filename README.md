@@ -129,6 +129,8 @@ const adapter = {
 }
 ```
 
+You can check the default [`passthroughAdapter`](./src/adapters/passthrough-adapter.js) as a reference implementation.
+
 The methods `addHandlerListener`, `addUnmountListener` and `addRenderListener` must return a function that can be used to dismiss the listener that was configured using the passed `cb`.
 
 ## Development
