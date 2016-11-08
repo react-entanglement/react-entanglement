@@ -41,8 +41,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
+    "enzyme": "^2.5.1",
     "in-publish": "^2.0.0",
     "react": "^15.1.0",
+    "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.1.0",
     "sagui": "^7.1.1"
   }
