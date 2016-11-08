@@ -7,8 +7,8 @@ export default () => {
     scatterer: {
       unmount: (componentName) => emiter.emit(`unmount:${componentName}`),
 
-      render: (componentName, data, handlerNames) => {
-        emiter.emit(`render:${componentName}`, data, handlerNames)
+      render: (componentName, data, handlerNames, context) => {
+        emiter.emit(`render:${componentName}`, data, handlerNames, context)
       },
 
       addHandlerListener: (componentName, handlerName, cb) => {

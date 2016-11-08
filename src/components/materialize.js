@@ -1,7 +1,7 @@
 import React from 'react'
 import AdapterType from '../adapters/adapter-type'
 
-export default function materialize (componentName, ComponentConstructor) {
+export default function materialize (componentName, ComponentConstructor, componentContextTypes = {}) {
   return React.createClass({
     displayName: `Entanglement.materialize.${componentName}`,
 
@@ -9,11 +9,21 @@ export default function materialize (componentName, ComponentConstructor) {
       entanglement: AdapterType
     },
 
+    childContextTypes: {
+      entanglement: AdapterType,
+      ...componentContextTypes
+    },
+
     getInitialState () {
       return {
         isMounted: false,
-        props: {}
+        props: {},
+        context: {}
       }
+    },
+
+    getChildContext () {
+      return this.state.context || {}
     },
 
     componentDidMount () {
@@ -34,7 +44,7 @@ export default function materialize (componentName, ComponentConstructor) {
       this.setState({ isMounted: false })
     },
 
-    handleRender (data, handlerNames) {
+    handleRender (data, handlerNames, context) {
       const { materializer } = this.context.entanglement
 
       const buildHandler = (name) => (...args) => (
@@ -48,7 +58,7 @@ export default function materialize (componentName, ComponentConstructor) {
         ), {})
       }
 
-      this.setState({ isMounted: true, props })
+      this.setState({ isMounted: true, props, context })
     },
 
     render () {

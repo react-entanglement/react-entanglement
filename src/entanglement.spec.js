@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 import { mount } from 'enzyme'
 
 import Entanglement from './entanglement'
@@ -50,6 +50,51 @@ describe('Entanglement', () => {
       mount(<Main />)
 
       expect(remote.find(Example).text()).toEqual('Hello Paulo!')
+    })
+
+    it('should scatter whitelisted context', () => {
+      function Example ({ name }, { lastName }) {
+        return <div>Hello {name} {lastName}!</div>
+      }
+
+      Example.contextTypes = {
+        lastName: PropTypes.string
+      }
+
+      const adapter = Entanglement.passthroughAdapter()
+      const ScatteredExample = Entanglement.scatter('Example', { lastName: PropTypes.string })
+      const MaterializedExample = Entanglement.materialize('Example', Example, { lastName: PropTypes.string })
+
+      class Main extends Component {
+        getChildContext () {
+          return { lastName: 'Ragonha' }
+        }
+
+        render () {
+          return (
+            <Entanglement adapter={adapter}>
+              <ScatteredExample name='Paulo' />
+            </Entanglement>
+          )
+        }
+      }
+
+      Main.childContextTypes = {
+        lastName: PropTypes.string
+      }
+
+      function Remote () {
+        return (
+          <Entanglement adapter={adapter}>
+            <MaterializedExample />
+          </Entanglement>
+        )
+      }
+
+      const remote = mount(<Remote />)
+      mount(<Main />)
+
+      expect(remote.find(Example).text()).toEqual('Hello Paulo Ragonha!')
     })
   })
 })
