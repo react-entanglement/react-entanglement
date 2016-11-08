@@ -1,25 +1,48 @@
 body {
-  font-family: 'helvetica neue', helvetica, sans-serif;
+  font-family: 'Lato', 'helvetica neue', helvetica, sans-serif;
   line-height: 1.5;
   font-size: 1.25em;
+  margin: 0;
 }
 
 pre {
-  background: #263238;
-  color: #5fb3b3;
+  /*background: #263238;*/
+  color: #131321;
   padding: 1em;
+  font-family: Inconsolata, monospace;
   overflow-x: scroll;
+  margin: 0;
+  margin-top: .5rem;
+  font-size: 1rem;
 }
 
-main {
-  max-width: 900px;
-  margin: auto;
+h2 {
+  font-size: .725rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  font-weight: normal;
+  padding: 1rem;
+  margin: 0;
+  background: white;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+  /*border-bottom: 1px solid #999999;*/
 }
 
-.app {
-  background: #ecf0f1;
-  padding: 1em;
-  height: 3em;
+header {
+  color: #F7F7FF;
+  background: #290F36;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 3rem 0;
+  font-size: 1rem;
+}
+
+h1 {
+  color: #F7F7FF;
+  font-weight: 400;
+  font-size: 2rem;
 }
 
 .logo {
@@ -30,7 +53,27 @@ main {
 }
 
 .introduction {
+  background: #652D6D;
   text-align: center;
+  color: #F7F7FF;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 1rem 0;
+}
+
+.introduction div {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.introduction pre {
+  border-radius: 0;
+  color: #F7F7FF;
+}
+
+footer {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 input {
@@ -42,6 +85,31 @@ input {
 article {
   padding: 0.5em;
   box-sizing: border-box;
+}
+
+section {
+  position: relative;
+  width: 400px;
+  display: block;
+  height: 380px;
+}
+
+.app {
+  box-shadow: inset 0 0 5px #131321;
+  padding: 1rem;
+  background: #f9f9f9;
+  height: 50px;
+}
+
+section .app {
+  position: absolute;
+  top: 140px;
+  left: 40px;
+  width: 250px;
+  text-align: center;
+  height: 170px;
+  z-index: 10000;
+  word-break: break-all;
 }
 
 .main-example, .remote-example {
