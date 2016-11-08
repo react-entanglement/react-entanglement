@@ -1,6 +1,6 @@
 {
   "name": "react-entanglement",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0",
   "description": "Spooky action at a distance",
   "main": "index.js",
   "files": [
