@@ -37,15 +37,15 @@
   },
   "homepage": "https://github.com/react-entanglement/react-entanglement#readme",
   "peerDependencies": {
-    "react": "^0.14 || ^15.0.0"
+    "react": "^15.5.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5",
-    "enzyme": "^2.5.1",
+    "babel-cli": "^6.24.1",
+    "enzyme": "^2.8.2",
     "in-publish": "^2.0.0",
-    "react": "^15.1.0",
-    "react-addons-test-utils": "^15.3.2",
-    "react-dom": "^15.1.0",
-    "sagui": "^7.1.1"
+    "react": "^15.5.4",
+    "react-addons-test-utils": "^15.5.1",
+    "react-dom": "^15.5.4",
+    "sagui": "^7.4.1"
   }
 }
