@@ -42,6 +42,7 @@
     "babel-cli": "^6.24.1",
     "enzyme": "^2.8.2",
     "in-publish": "^2.0.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { render } from 'react-dom'
 import './index.css'
 
@@ -7,14 +7,14 @@ import Entanglement from '../entanglement'
 import Main from './main'
 import Remote from './remote'
 
-export default React.createClass({
+export default class Demo extends Component {
   componentDidMount() {
     const adapter = Entanglement.passthroughAdapter()
 
     render(<Remote adapter={adapter} />, this.refs.remote, () => {
       render(<Main adapter={adapter} />, this.refs.main)
     })
-  },
+  }
 
   render() {
     return (
@@ -64,5 +64,5 @@ export default React.createClass({
         </article>
       </main>
     )
-  },
-})
+  }
+}

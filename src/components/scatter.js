@@ -1,11 +1,11 @@
-import React from 'react'
+import { Component } from 'react'
 import splitHandlers from '../helpers/split-handlers'
 import AdapterType from '../adapters/adapter-type'
 
 export default function scatter({ name, contextTypes = {} }) {
-  const update = component => {
+  const update = (component, context) => {
     const { data, handlers } = splitHandlers(component.props)
-    const { scatterer } = component.context.entanglement
+    const { scatterer } = context.entanglement
     const handlerNames = Object.keys(handlers)
 
     // dismiss previous handlers and register new ones
@@ -17,9 +17,7 @@ export default function scatter({ name, contextTypes = {} }) {
       )
     )
 
-    const context = extractContext(component.context, contextTypes)
-
-    scatterer.render(name, data, handlerNames, context)
+    scatterer.render(name, data, handlerNames, extractContext(context, contextTypes))
   }
 
   const unmount = component => {
@@ -36,34 +34,41 @@ export default function scatter({ name, contextTypes = {} }) {
     // validate that the props should only have a shallow handlers
   }
 
-  return React.createClass({
-    displayName: `Entanglement.scatter.${name}`,
+  class Scatter extends Component {
+    constructor(_, context) {
+      super()
 
-    contextTypes: {
-      entanglement: AdapterType,
-      ...contextTypes,
-    },
+      debugger
+      update(this, context)
+    }
 
     componentWillUpdate() {
       validate(this)
-    },
+    }
 
-    componentDidMount() {
-      update(this)
-    },
-    componentDidUpdate() {
-      update(this)
-    },
+    componentDidUpdate(_, __, context) {
+      debugger
+      update(this, context)
+    }
 
     componentWillUnmount() {
       unmount(this)
-    },
+    }
 
     // the wrapped component will not be rendered here
     render() {
       return false
-    },
-  })
+    }
+  }
+
+  Scatter.displayName = `Entanglement.scatter.${name}`
+
+  Scatter.contextTypes = {
+    entanglement: AdapterType,
+    ...contextTypes,
+  }
+
+  return Scatter
 }
 
 function extractContext(context, contextTypes) {
