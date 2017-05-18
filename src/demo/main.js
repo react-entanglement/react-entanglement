@@ -4,21 +4,18 @@ import Entanglement from '../entanglement'
 const ScatteredField = Entanglement.scatter({ name: 'Field' })
 
 export default React.createClass({
-  getInitialState () {
+  getInitialState() {
     return {
-      value: 'Change remotely'
+      value: 'Change remotely',
     }
   },
 
-  render () {
+  render() {
     return (
       <Entanglement adapter={this.props.adapter}>
         <span>Value: {this.state.value}</span>
-        <ScatteredField
-          value={this.state.value}
-          onChange={(value) => this.setState({ value })}
-        />
+        <ScatteredField value={this.state.value} onChange={value => this.setState({ value })} />
       </Entanglement>
     )
-  }
+  },
 })

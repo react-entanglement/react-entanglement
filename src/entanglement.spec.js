@@ -23,23 +23,26 @@ describe('Entanglement', () => {
 
   describe('integration tests', () => {
     it('should scatter props', () => {
-      function Example ({ name }) {
+      function Example({ name }) {
         return <div>Hello {name}!</div>
       }
 
       const adapter = Entanglement.passthroughAdapter()
       const ScatteredExample = Entanglement.scatter({ name: 'Example' })
-      const MaterializedExample = Entanglement.materialize({ name: 'Example', constructor: Example })
+      const MaterializedExample = Entanglement.materialize({
+        name: 'Example',
+        constructor: Example,
+      })
 
-      function Main () {
+      function Main() {
         return (
           <Entanglement adapter={adapter}>
-            <ScatteredExample name='Paulo' />
+            <ScatteredExample name="Paulo" />
           </Entanglement>
         )
       }
 
-      function Remote () {
+      function Remote() {
         return (
           <Entanglement adapter={adapter}>
             <MaterializedExample />
@@ -54,37 +57,44 @@ describe('Entanglement', () => {
     })
 
     it('should scatter whitelisted context', () => {
-      function Example ({ name }, { lastName }) {
+      function Example({ name }, { lastName }) {
         return <div>Hello {name} {lastName}!</div>
       }
 
       Example.contextTypes = {
-        lastName: PropTypes.string
+        lastName: PropTypes.string,
       }
 
       const adapter = Entanglement.passthroughAdapter()
-      const ScatteredExample = Entanglement.scatter({ name: 'Example', contextTypes: { lastName: PropTypes.string } })
-      const MaterializedExample = Entanglement.materialize({ name: 'Example', constructor: Example, contextTypes: { lastName: PropTypes.string } })
+      const ScatteredExample = Entanglement.scatter({
+        name: 'Example',
+        contextTypes: { lastName: PropTypes.string },
+      })
+      const MaterializedExample = Entanglement.materialize({
+        name: 'Example',
+        constructor: Example,
+        contextTypes: { lastName: PropTypes.string },
+      })
 
       class Main extends Component {
-        getChildContext () {
+        getChildContext() {
           return { lastName: 'Ragonha' }
         }
 
-        render () {
+        render() {
           return (
             <Entanglement adapter={adapter}>
-              <ScatteredExample name='Paulo' />
+              <ScatteredExample name="Paulo" />
             </Entanglement>
           )
         }
       }
 
       Main.childContextTypes = {
-        lastName: PropTypes.string
+        lastName: PropTypes.string,
       }
 
-      function Remote () {
+      function Remote() {
         return (
           <Entanglement adapter={adapter}>
             <MaterializedExample />

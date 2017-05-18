@@ -10,6 +10,7 @@
     "build": "rm -rf lib && babel src --out-dir lib --ignore *.spec.js",
     "build:demo": "cross-env NODE_ENV=production sagui build --optimize",
     "dist": "npm run build",
+    "format": "sagui format",
     "prepublish": "not-in-install && npm prune && npm test && npm run dist || in-install",
     "start": "sagui develop --port 3000",
     "test": "sagui test",
@@ -44,6 +45,6 @@
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
-    "sagui": "^8.0.7"
+    "sagui": "^9.0.0-rc.15"
   }
 }

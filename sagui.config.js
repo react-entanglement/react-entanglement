@@ -9,7 +9,7 @@ module.exports = {
     cssModules: false
   },
 
-  webpack: {
+  additionalWebpackConfig: {
     // Enzyme setup
     externals: {
       'cheerio': 'window',

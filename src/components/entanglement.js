@@ -3,20 +3,20 @@ import AdapterType from '../adapters/adapter-type'
 
 export default React.createClass({
   propTypes: {
-    adapter: AdapterType
+    adapter: AdapterType,
   },
 
   childContextTypes: {
-    entanglement: AdapterType
+    entanglement: AdapterType,
   },
 
-  getChildContext () {
+  getChildContext() {
     return {
-      entanglement: this.props.adapter
+      entanglement: this.props.adapter,
     }
   },
 
-  render () {
+  render() {
     return <span>{this.props.children}</span>
-  }
+  },
 })
