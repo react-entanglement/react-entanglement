@@ -3,9 +3,9 @@ import splitHandlers from '../helpers/split-handlers'
 import AdapterType from '../adapters/adapter-type'
 
 export default function scatter({ name, contextTypes = {} }) {
-  const update = (component, context) => {
-    const { data, handlers } = splitHandlers(component.props)
-    const { scatterer } = context.entanglement
+  const update = (component, props, context) => {
+    const { data, handlers } = splitHandlers(props)
+    const { scatterer } = component.entanglement
     const handlerNames = Object.keys(handlers)
 
     // dismiss previous handlers and register new ones
@@ -21,7 +21,7 @@ export default function scatter({ name, contextTypes = {} }) {
   }
 
   const unmount = component => {
-    const { scatterer } = component.context.entanglement
+    const { scatterer } = component.entanglement
 
     scatterer.unmount(name)
     component.dismissers.forEach(dismisser => dismisser())
@@ -35,11 +35,11 @@ export default function scatter({ name, contextTypes = {} }) {
   }
 
   class Scatter extends Component {
-    constructor(_, context) {
+    constructor(props, context) {
       super()
 
-      debugger
-      update(this, context)
+      this.entanglement = context.entanglement
+      update(this, props, context)
     }
 
     componentWillUpdate() {
@@ -47,8 +47,9 @@ export default function scatter({ name, contextTypes = {} }) {
     }
 
     componentDidUpdate(_, __, context) {
-      debugger
-      update(this, context)
+      this.entanglement = context.entanglement
+
+      update(this, this.props, context)
     }
 
     componentWillUnmount() {
