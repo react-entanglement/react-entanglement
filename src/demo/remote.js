@@ -4,7 +4,7 @@ import Field from './field'
 
 const MaterializedField = Entanglement.materialize({ name: 'Field', constructor: Field })
 
-export default function Remote ({ adapter }) {
+export default function Remote({ adapter }) {
   return (
     <Entanglement adapter={adapter}>
       <MaterializedField />

@@ -1,12 +1,12 @@
-export default (props) => {
+export default props => {
   const data = Object.keys(props)
-    .filter((key) => typeof props[key] !== 'function')
+    .filter(key => typeof props[key] !== 'function')
     .reduce((obj, key) => {
       return { ...obj, [key]: props[key] }
     }, {})
 
   const handlers = Object.keys(props)
-    .filter((key) => typeof props[key] === 'function')
+    .filter(key => typeof props[key] === 'function')
     .reduce((obj, key) => {
       return { ...obj, [key]: props[key] }
     }, {})

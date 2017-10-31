@@ -7,18 +7,16 @@
     "lib"
   ],
   "scripts": {
-    "prepublish": "not-in-install && npm prune && npm test && npm run dist || in-install",
-    "build:demo": "cross-env NODE_ENV=production sagui build --optimize",
     "build": "rm -rf lib && babel src --out-dir lib --ignore *.spec.js",
-    "develop": "sagui develop --port 3000",
+    "build:demo": "cross-env NODE_ENV=production sagui build --optimize",
     "dist": "npm run build",
-    "start": "npm run develop",
-    "test": "npm run test:lint && npm run test:typecheck && npm run test:unit",
-    "test:coverage": "npm run test:unit -- --coverage",
-    "test:lint": "sagui lint",
-    "test:typecheck": "sagui typecheck",
-    "test:unit": "cross-env NODE_ENV=test sagui test",
-    "test:unit:watch": "npm run test:unit -- --watch"
+    "format": "sagui format",
+    "start": "sagui develop --port 3000",
+    "test": "sagui test",
+    "test:lint": "sagui test:lint",
+    "test:typecheck": "sagui test:typecheck",
+    "test:unit": "sagui test:unit --coverage",
+    "test:unit:watch": "sagui test:unit --watch"
   },
   "repository": {
     "type": "git",
@@ -37,15 +35,12 @@
   },
   "homepage": "https://github.com/react-entanglement/react-entanglement#readme",
   "peerDependencies": {
-    "react": "^15.5.4"
+    "react": "^15.5.4 || 16"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "enzyme": "^2.8.2",
-    "in-publish": "^2.0.0",
-    "react": "^15.5.4",
-    "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
-    "sagui": "^7.4.1"
+    "sagui": "^11.3.0",
+    "react": "16",
+    "react-dom": "16"
   }
 }
