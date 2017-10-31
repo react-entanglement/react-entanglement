@@ -6,16 +6,16 @@ module.exports = {
   pages: ['index'],
 
   style: {
-    cssModules: false
+    cssModules: false,
   },
 
-  webpack: {
+  additionalWebpackConfig: {
     // Enzyme setup
     externals: {
-      'cheerio': 'window',
+      cheerio: 'window',
       'react/addons': true,
       'react/lib/ExecutionEnvironment': true,
-      'react/lib/ReactContext': true
-    }
-  }
+      'react/lib/ReactContext': true,
+    },
+  },
 }

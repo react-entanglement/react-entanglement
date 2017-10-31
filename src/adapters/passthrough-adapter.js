@@ -5,7 +5,7 @@ export default () => {
 
   return {
     scatterer: {
-      unmount: (componentName) => emiter.emit(`unmount:${componentName}`),
+      unmount: componentName => emiter.emit(`unmount:${componentName}`),
 
       render: (componentName, data, handlerNames, context) => {
         emiter.emit(`render:${componentName}`, data, handlerNames, context)
@@ -15,7 +15,7 @@ export default () => {
         const eventName = `handle:${componentName}:${handlerName}`
         emiter.on(eventName, cb)
         return () => emiter.removeListener(eventName, cb)
-      }
+      },
     },
 
     materializer: {
@@ -31,7 +31,8 @@ export default () => {
         return () => emiter.removeListener(eventName, cb)
       },
 
-      handle: (componentName, handlerName, args) => emiter.emit(`handle:${componentName}:${handlerName}`, args)
-    }
+      handle: (componentName, handlerName, args) =>
+        emiter.emit(`handle:${componentName}:${handlerName}`, args),
+    },
   }
 }

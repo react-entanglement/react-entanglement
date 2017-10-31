@@ -1,69 +1,75 @@
-import React from 'react'
+import React, { Component } from 'react'
 import AdapterType from '../adapters/adapter-type'
 
-export default function materialize ({ name, constructor, contextTypes = {} }) {
-  return React.createClass({
-    displayName: `Entanglement.materialize.${name}`,
+export default function materialize({ name, constructor, contextTypes = {} }) {
+  class Materialize extends Component {
+    constructor() {
+      super()
 
-    contextTypes: {
-      entanglement: AdapterType
-    },
-
-    childContextTypes: {
-      entanglement: AdapterType,
-      ...contextTypes
-    },
-
-    getInitialState () {
-      return {
+      this.state = {
         isMounted: false,
         props: {},
-        context: {}
+        context: {},
       }
-    },
 
-    getChildContext () {
+      this.handleUnmount = this.handleUnmount.bind(this)
+      this.handleRender = this.handleRender.bind(this)
+    }
+
+    getChildContext() {
       return this.state.context || {}
-    },
+    }
 
-    componentDidMount () {
+    componentDidMount() {
       const { materializer } = this.context.entanglement
 
       this.dismissers = [
         materializer.addRenderListener(name, this.handleRender),
-        materializer.addUnmountListener(name, this.handleUnmount)
+        materializer.addUnmountListener(name, this.handleUnmount),
       ]
-    },
+    }
 
-    componentWillUnmount () {
-      this.dismissers.forEach((dismisser) => dismisser())
+    componentWillUnmount() {
+      this.dismissers.forEach(dismisser => dismisser())
       this.dismissers = []
-    },
+    }
 
-    handleUnmount () {
+    handleUnmount() {
       this.setState({ isMounted: false })
-    },
+    }
 
-    handleRender (data, handlerNames, context) {
+    handleRender(data, handlerNames, context) {
       const { materializer } = this.context.entanglement
 
-      const buildHandler = (handlerName) => (...args) => (
-        materializer.handle(name, handlerName, args)
-      )
+      const buildHandler = handlerName => (...args) => materializer.handle(name, handlerName, args)
 
       const props = {
         ...data,
-        ...handlerNames.reduce((acc, handlerName) => (
-          { ...acc, [handlerName]: buildHandler(handlerName) }
-        ), {})
+        ...handlerNames.reduce(
+          (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
+          {}
+        ),
       }
 
       this.setState({ isMounted: true, props, context })
-    },
+    }
 
-    render () {
+    render() {
       const { isMounted, props } = this.state
       return isMounted && React.createElement(constructor, props)
     }
-  })
+  }
+
+  Materialize.displayName = `Entanglement.materialize.${name}`
+
+  Materialize.contextTypes = {
+    entanglement: AdapterType,
+  }
+
+  Materialize.childContextTypes = {
+    entanglement: AdapterType,
+    ...contextTypes,
+  }
+
+  return Materialize
 }
