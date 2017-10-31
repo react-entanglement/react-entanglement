@@ -35,12 +35,14 @@
   },
   "homepage": "https://github.com/react-entanglement/react-entanglement#readme",
   "peerDependencies": {
-    "react": "^15.5.4 || 16"
+    "prop-types": "^15.6.0",
+    "react": "16"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "sagui": "^11.3.0",
     "react": "16",
-    "react-dom": "16"
+    "react-dom": "16",
+    "sagui": "^11.3.0",
+    "prop-types": "^15.6.0"
   }
 }
