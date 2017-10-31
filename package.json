@@ -39,9 +39,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "sagui": "^11.3.0"
-  },
-  "dependencies": {
+    "sagui": "^11.3.0",
     "react": "16",
     "react-dom": "16"
   }
