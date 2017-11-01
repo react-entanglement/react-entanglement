@@ -11,8 +11,8 @@ export default class Demo extends Component {
   componentDidMount() {
     const adapter = Entanglement.passthroughAdapter()
 
-    render(<Remote adapter={adapter} />, this.refs.remote, () => {
-      render(<Main adapter={adapter} />, this.refs.main)
+    render(<Main adapter={adapter} />, this.refs.main, () => {
+      render(<Remote adapter={adapter} />, this.refs.remote)
     })
   }
 
