@@ -2,25 +2,28 @@ import React, { Component } from 'react'
 import AdapterType from '../adapters/adapter-type'
 
 const getDesiredState = (name, materializer) => {
-  if (materializer.renderBuffer[`render:${name}`] == null)
-    return {
-      isMounted: false,
-      props: {},
-      context: {},
+  if (materializer.renderBuffer && materializer.renderBuffer[`render:${name}`] != null) {
+    const [data, handlerNames, context] = materializer.renderBuffer[`render:${name}`]
+
+    const buildHandler = handlerName => (...args) => materializer.handle(name, handlerName, args)
+
+    const props = {
+      ...data,
+      ...handlerNames.reduce(
+        (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
+        {}
+      ),
     }
-  const [data, handlerNames, context] = materializer.renderBuffer[`render:${name}`]
 
-  const buildHandler = handlerName => (...args) => materializer.handle(name, handlerName, args)
+    return { isMounted: true, props, context }
 
-  const props = {
-    ...data,
-    ...handlerNames.reduce(
-      (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
-      {}
-    ),
   }
 
-  return { isMounted: true, props, context }
+  return {
+    isMounted: false,
+    props: {},
+    context: {},
+  }
 }
 
 export default function materialize({ name, constructor, contextTypes = {} }) {
