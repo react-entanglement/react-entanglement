@@ -29,13 +29,10 @@ export default () => {
         emitter.on(eventName, cb)
         return () => emitter.removeListener(eventName, cb)
       },
-
+      renderBuffer,
       addRenderListener: (componentName, cb) => {
         const eventName = `render:${componentName}`
         emitter.on(eventName, cb)
-        if (renderBuffer[`render:${componentName}`]) {
-          cb(...renderBuffer[`render:${componentName}`]) // eslint-disable-line standard/no-callback-literal
-        }
         return () => emitter.removeListener(eventName, cb)
       },
 
