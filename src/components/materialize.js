@@ -1,31 +1,6 @@
 import React, { Component } from 'react'
 import AdapterType from '../adapters/adapter-type'
 
-const getDesiredState = (name, materializer) => {
-  if (materializer.renderBuffer && materializer.renderBuffer[`render:${name}`] != null) {
-    const [data, handlerNames, context] = materializer.renderBuffer[`render:${name}`]
-
-    const buildHandler = handlerName => (...args) => materializer.handle(name, handlerName, args)
-
-    const props = {
-      ...data,
-      ...handlerNames.reduce(
-        (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
-        {}
-      ),
-    }
-
-    return { isMounted: true, props, context }
-
-  }
-
-  return {
-    isMounted: false,
-    props: {},
-    context: {},
-  }
-}
-
 export default function materialize({ name, constructor, contextTypes = {} }) {
   class Materialize extends Component {
     constructor(props, context) {
@@ -33,7 +8,32 @@ export default function materialize({ name, constructor, contextTypes = {} }) {
 
       const { materializer } = this.context.entanglement
 
-      this.state = getDesiredState(name, materializer)
+      const bufferedData = materializer.getRenderData(name)
+
+      if (bufferedData) {
+        const [data, handlerNames, context] = bufferedData
+
+        const buildHandler = handlerName => (...args) =>
+          materializer.handle(name, handlerName, args)
+
+        this.state = {
+          isMounted: true,
+          props: {
+            ...data,
+            ...handlerNames.reduce(
+              (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
+              {}
+            ),
+          },
+          context,
+        }
+      } else {
+        this.state = {
+          isMounted: false,
+          props: {},
+          context: {},
+        }
+      }
 
       this.handleUnmount = this.handleUnmount.bind(this)
       this.handleRender = this.handleRender.bind(this)
