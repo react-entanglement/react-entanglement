@@ -3,13 +3,36 @@ import AdapterType from '../adapters/adapter-type'
 
 export default function materialize({ name, constructor, contextTypes = {} }) {
   class Materialize extends Component {
-    constructor() {
-      super()
+    constructor(props, context) {
+      super(props, context)
 
-      this.state = {
-        isMounted: false,
-        props: {},
-        context: {},
+      const { materializer } = this.context.entanglement
+
+      const bufferedData = materializer.getRenderData(name)
+
+      if (bufferedData) {
+        const [data, handlerNames, context] = bufferedData
+
+        const buildHandler = handlerName => (...args) =>
+          materializer.handle(name, handlerName, args)
+
+        this.state = {
+          isMounted: true,
+          props: {
+            ...data,
+            ...handlerNames.reduce(
+              (acc, handlerName) => ({ ...acc, [handlerName]: buildHandler(handlerName) }),
+              {}
+            ),
+          },
+          context,
+        }
+      } else {
+        this.state = {
+          isMounted: false,
+          props: {},
+          context: {},
+        }
       }
 
       this.handleUnmount = this.handleUnmount.bind(this)

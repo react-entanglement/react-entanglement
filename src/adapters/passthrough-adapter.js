@@ -13,7 +13,7 @@ export default () => {
 
       render: (componentName, data, handlerNames, context) => {
         emitter.emit(`render:${componentName}`, data, handlerNames, context)
-        renderBuffer[`render:${componentName}`] = [data, handlerNames, context]
+        renderBuffer[componentName] = [data, handlerNames, context]
       },
 
       addHandlerListener: (componentName, handlerName, cb) => {
@@ -29,13 +29,10 @@ export default () => {
         emitter.on(eventName, cb)
         return () => emitter.removeListener(eventName, cb)
       },
-
+      getRenderData: name => renderBuffer[name],
       addRenderListener: (componentName, cb) => {
         const eventName = `render:${componentName}`
         emitter.on(eventName, cb)
-        if (renderBuffer[`render:${componentName}`]) {
-          cb(...renderBuffer[`render:${componentName}`]) // eslint-disable-line standard/no-callback-literal
-        }
         return () => emitter.removeListener(eventName, cb)
       },
 
