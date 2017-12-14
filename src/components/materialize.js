@@ -8,7 +8,7 @@ export default function materialize({ name, constructor, contextTypes = {} }) {
 
       const { materializer } = this.context.entanglement
 
-      const bufferedData = materializer.getRenderData(name)
+      const bufferedData = materializer.getRenderData && materializer.getRenderData(name)
 
       if (bufferedData) {
         const [data, handlerNames, context] = bufferedData
