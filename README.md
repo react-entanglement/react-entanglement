@@ -1,3 +1,10 @@
+# Deprecated
+
+No longer being maintained. We recommend using either:
+
+- [@klarna/remote-frames](https://github.com/klarna/remote-frames)
+- [Portals](https://reactjs.org/docs/portals.html)
+
 # <img src='./src/demo/react-entanglement.png' height='128px' title='React Entanglement' />
 
 [![Build Status](https://travis-ci.org/react-entanglement/react-entanglement.svg)](https://travis-ci.org/react-entanglement/react-entanglement)
